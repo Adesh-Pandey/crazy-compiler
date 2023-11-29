@@ -1,43 +1,5 @@
-#[derive(Debug, PartialEq, Clone)]
-enum Number {
-    Int(i32),
-    Float(f32),
-}
-#[derive(Debug, PartialEq, Clone)]
-enum Types {
-    Number(Number),
-    String,
-}
-#[derive(Debug, PartialEq, Clone)]
-enum Arithmatic {
-    Add,
-    Subtract,
-    Multiply,
-}
-#[derive(Debug, PartialEq, Clone)]
-enum Logical {
-    OR,
-    AND,
-    NOT,
-}
-#[derive(Debug, PartialEq, Clone)]
-enum Operator {
-    ArithmaticOperator(Arithmatic),
-    LogicalOperator(Logical),
-    Assignment,
-}
-#[derive(Debug, PartialEq, Clone)]
-enum TokenType {
-    Operator(Operator),
-    Identifier,
-    Comma,
-    Constant,
-}
-#[derive(Debug, PartialEq, Clone)]
-enum Data {
-    Char(char),
-    String(Box<String>),
-}
+use rust_compiler_for_crazy::{Arithmatic, Data, Logical, Number, Operator, TokenType, Types};
+
 fn save_current_token_buffer_and_clear(
     tokenized_list: &mut Vec<(TokenType, Data)>,
     current_token: &mut Vec<char>,
@@ -95,9 +57,23 @@ fn tokenize_instruction(instruction: &str) -> Vec<(TokenType, Data)> {
     tokenized_list
 }
 
+struct Node {
+    value: (TokenType, Data),
+    left_child: Box<(TokenType, Data)>,
+    right_child: Box<(TokenType, Data)>,
+}
+//
+// fn construct_ast(
+//     tokenized_list: &mut Vec<(TokenType, Data)>,
+//     head: (TokenType, Data),
+// ) -> Box<(TokenType, Data)> {
+//
+//
+//
+// }
+
 fn main() {
     let crazy_instructions = "variable = variable + 3";
-
     let tokenized = tokenize_instruction(crazy_instructions);
     println!("instructions \n {}\n", crazy_instructions);
     println!("{:?}", tokenized);
